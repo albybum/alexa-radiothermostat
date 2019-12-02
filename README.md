@@ -7,7 +7,7 @@ This is a fork inteded to work with AWS Lambda instead of a dedicated NodeJS and
 This project is based on the original creation by [bbrookfield](https://github.com/bbrookfield)
 
 #### Getting started
-1. Create an AWS Lambda Function and use the included index.js file as the contents of the function.
+1. Create an AWS Lambda Function and use the included index.js file as the contents of the function. Update the endpoint variable to point to your thermostat's IP address. Ideally, you would access your thermostat's ip from Lambda across a private vpn connection through your VPC's private subnet. But, you can also reference your public ip address and forward traffic to your thermostat (less secure).  
 2. Create a new AWS Lambda Layer associated with the function and upload a zip with the required structure and referenced node modules. \nodejs\node_modules\*
 4. Setup your Alexa skill
 5. Configure your intents (see below)
