@@ -4,7 +4,7 @@ var alexa = require('alexa-app');
 var newtemp 
 var oldtemp
 var thermostatApp = new alexa.app('thermostat');
-var endpoint = 'http://68.63.175.125:8081/tstat';
+var endpoint = 'http://YOUR_THERMOSTAT_URL/tstat';
 var headersOpt = {  
     "content-type": "application/json",
 };
