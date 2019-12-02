@@ -179,7 +179,7 @@ This project is based on the original creation by [bbrookfield](https://github.c
                     "samples": [
                         "to turn on hold",
                         "to turn hold on",
-                        "to turn hold on"
+                        "to set hold on"
                     ]
                 },
                 {
