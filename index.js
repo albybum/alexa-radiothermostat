@@ -37,8 +37,26 @@ thermostatApp.intent('setHeat', function(req, res) {
 thermostatApp.intent('setCool', function(req, res) {
   console.log('REQUEST', JSON.stringify(req));  
   request.post(endpoint, {json: {t_cool: parseFloat(req.slot('setCooling'))}});
-  res.card("Thermostat Skill","Thermostat cool mode is set to " + parseInt(req.slot('setCooling')) + " degrees");
-  res.say("Thermostat cool mode is set to " + parseInt(req.slot('setCooling')) + " degrees");
+  var options = {
+      method:'post',
+      url:endpoint, 
+      form: {t_cool: parseFloat(req.slot('setCooling'))}, 
+      headers: headersOpt,
+      json: true,
+  };  
+  // repeat request as async request to reduce request conflict with online rtcoa sync with thermostat
+  request(options,
+    function (error, response, body) {
+      console.log('Error: ' + error, 'RESPONSE: ' + response, 'BODY: ' + body);
+      console.log(JSON.stringify(response, null, 4));
+      console.log(JSON.stringify(body, null, 4));
+      res.card("Thermostat Skill","Thermostat cool mode is set to " + parseInt(req.slot('setCooling')) + " degrees");
+      res.say("Thermostat cool mode is set to " + parseInt(req.slot('setCooling')) + " degrees");
+      res.send();
+    }
+  ); 
+  return false;    
+
 });
 
 thermostatApp.intent('setOff', function(req, res) {
@@ -89,30 +107,90 @@ thermostatApp.intent('setOn', function(req, res) {
 
 thermostatApp.intent('setFanOn', function(req, res) {
   console.log('REQUEST', JSON.stringify(req));  
-  request.post(endpoint, {json: {"fmode": 2}});
-  res.card("Thermostat Skill","Thermostat fan is set to on");
-  res.say("Thermostat fan is set to on");
+  request.post(endpoint, {json: {"fmode": 2}});  // do initial request.
+  var options = {
+      method:'post',
+      url:endpoint, 
+      form: {"fmode": 2}, 
+      headers: headersOpt,
+      json: true,
+  };  
+  // repeat request as async request to reduce request conflict with online rtcoa sync with thermostat
+  request(options,
+    function (error, response, body) {
+      console.log('Error: ' + error, 'RESPONSE: ' + response, 'BODY: ' + body);
+      res.card("Thermostat Skill","Thermostat fan is set to on");
+      res.say("Thermostat fan is set to on");
+      res.send();
+    }
+  ); 
+  return false;  
 });
 
 thermostatApp.intent('setFanAuto', function(req, res) {
   console.log('REQUEST', JSON.stringify(req));  
-  request.post(endpoint, {json: {"fmode": 0}});
-  res.card("Thermostat Skill","Thermostat fan is set to auto");
-  res.say("Thermostat fan is set to auto");
+  request.post(endpoint, {json: {"fmode": 0}});  // do initial request.
+  var options = {
+      method:'post',
+      url:endpoint, 
+      form: {"fmode": 0}, 
+      headers: headersOpt,
+      json: true,
+  };  
+  // repeat request as async request to reduce request conflict with online rtcoa sync with thermostat
+  request(options,
+    function (error, response, body) {
+      console.log('Error: ' + error, 'RESPONSE: ' + response, 'BODY: ' + body);
+      res.card("Thermostat Skill","Thermostat fan is set to auto");
+      res.say("Thermostat fan is set to auto");
+      res.send();
+    }
+  ); 
+  return false;   
 });
 
 thermostatApp.intent('setHoldOn', function(req, res) {
   console.log('REQUEST', JSON.stringify(req));  
-  request.post(endpoint, {json: {"hold": 1}});
-  res.card("Thermostat Skill","Thermostat hold is set to on");
-  res.say("Thermostat hold is set to on");
+  request.post(endpoint, {json: {"hold": 1}}); // do initial request.
+  var options = {
+      method:'post',
+      url:endpoint, 
+      form: {"hold": 1}, 
+      headers: headersOpt,
+      json: true,
+  };  
+  // repeat request as async request to reduce request conflict with online rtcoa sync with thermostat
+  request(options,
+    function (error, response, body) {
+      console.log('Error: ' + error, 'RESPONSE: ' + response, 'BODY: ' + body);
+      res.card("Thermostat Skill","Thermostat hold is set to on");
+      res.say("Thermostat hold is set to on");
+      res.send();
+    }
+  ); 
+  return false;    
 });
 
 thermostatApp.intent('setHoldOff', function(req, res) {
   console.log('REQUEST', JSON.stringify(req));  
   request.post(endpoint, {json: {"hold": 0}});
-  res.card("Thermostat Skill","Thermostat hold is set to off");
-  res.say("Thermostat hold is set to off");
+  var options = {
+      method:'post',
+      url:endpoint, 
+      form: {"hold": 0}, 
+      headers: headersOpt,
+      json: true,
+  };  
+  // repeat request as async request to reduce request conflict with online rtcoa sync with thermostat
+  request(options,
+    function (error, response, body) {
+      console.log('Error: ' + error, 'RESPONSE: ' + response, 'BODY: ' + body);
+      res.card("Thermostat Skill","Thermostat hold is set to off");
+      res.say("Thermostat hold is set to off");
+      res.send();
+    }
+  ); 
+  return false;   
 });
 
 // process get temperature request
